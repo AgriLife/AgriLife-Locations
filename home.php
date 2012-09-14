@@ -7,7 +7,7 @@
 <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
 <link href="http://agrilife.org/wp-content/themes/AgriLife-Locations/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css" type="text/css" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script> 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script> 
@@ -15,31 +15,92 @@
 <script type="text/javascript"> 
 var map,
 	layer,
-	tableid = 2891754;
-
-function initialize() {
-	geocoder = new google.maps.Geocoder();
-	map = new google.maps.Map(document.getElementById('map_canvas'), {
+  tableid = 2891754,
+  myOptions = {
     center: new google.maps.LatLng(31.7093197, -98.9911611),
     zoom: 6,
     mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+
+function initialize() {
+    map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+    layer_ext = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'Location',
+            from: tableid,
+            where: 'Type = 1'
+        }
+    });
+
+    layer_res = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'Location',
+            from: tableid,
+            where: 'Type = 2'
+        }
+        
+    });
+
+    layer_tvmdl = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'Location',
+            from: tableid,
+            where: 'Type = 3'
+        }
+    });
+
+    layer_tfs = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'Location',
+            from: tableid,
+            where: 'Type = 4'
+        }
+    });
+    geocoder = new google.maps.Geocoder();
+    aghq = new google.maps.LatLng(30.5997762, -96.3522229);
+    var marker = [];
+    marker = new google.maps.Marker({
+        map: map,
+        position: aghq,
+        icon: new google.maps.MarkerImage("http://agrilife.org/template-agriflex/wp-content/themes/AgriLife-Locations/images/agrilife-marker.png")
+    });
+
+
+    layer_ext.setMap(map);
+    layer_res.setMap(map);
+    layer_tvmdl.setMap(map);
+    layer_tfs.setMap(map);
+}
+
+var infoWindow = new google.maps.InfoWindow();
+
+function toggleLayer(layer) {
+    if (layer.getMap()) {
+        layer.setMap(null);
+    } else {
+        layer.setMap(map);
+    }
+}
+
+// Toggle layer visibility when user clicks on branch
+$(document).ready( function() {
+  $('#extension-legend').click(function() {
+      toggleLayer(layer_ext);
   });
 
-	//create the AgriLife HQ marker
- 	aghq = new google.maps.LatLng(30.5997762, -96.3522229);
-	var marker = new google.maps.Marker({
-	    map: map, 
-	    position: aghq,
-	    //this is where the magic happens!
-	    icon: new google.maps.MarkerImage("http://agrilife.org/template-agriflex/wp-content/themes/AgriLife-Locations/images/agrilife-marker.png")
-	});
+  $('#research-legend').click(function() {
+      toggleLayer(layer_res);
+  });
 
-  layer = new google.maps.FusionTablesLayer(tableid);
-  layer.setQuery("SELECT 'Location' FROM " + tableid);
-  layer.setMap(map);
-}
-	var infoWindow = new google.maps.InfoWindow();
+  $('#tfs-legend').click(function() {
+      toggleLayer(layer_tfs);
+  });
 
+  $('#tvmdl-legend').click(function() {
+      toggleLayer(layer_tvmdl);
+  });
+});
 function changeMapExt() {
 	var searchString = document.getElementById('search-string-ext').value.replace(/'/g, "\\'");
 	if(!searchString) {
@@ -70,10 +131,13 @@ function codeAddress(place) {
 		});
 }
 
+$(document).ready( function() {
+  initialize();
+});
 					
 </script> 
 </head> 
-<body onload="initialize()"> 
+<body> 
 	<div id="map_canvas"></div> 
 	<section class="legend">
 	<div class="legend-button">Legend &amp; Search</div>
