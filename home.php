@@ -14,13 +14,21 @@
 
 <script type="text/javascript"> 
 var map,
-	layer,
   tableid = 2891754,
   myOptions = {
     center: new google.maps.LatLng(31.7093197, -98.9911611),
     zoom: 6,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
+var layer_ext;
+
+$(document).ready( function() {
+
+  initialize();
+  layerUrl();
+
+
+});
 
 function initialize() {
     map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
@@ -66,11 +74,22 @@ function initialize() {
         icon: new google.maps.MarkerImage("http://agrilife.org/template-agriflex/wp-content/themes/AgriLife-Locations/images/agrilife-marker.png")
     });
 
+    console.log('Initialized!');
 
-    layer_ext.setMap(map);
-    layer_res.setMap(map);
-    layer_tvmdl.setMap(map);
-    layer_tfs.setMap(map);
+
+}
+
+function layerUrl() {
+  httparg = getUrlVars()["layer"];
+
+  if(httparg == null) {
+    showAll();
+  } else {
+    $(function() {
+    layer = window['layer_' + httparg];
+    toggleLayer(layer);
+    });
+  }
 }
 
 var infoWindow = new google.maps.InfoWindow();
@@ -81,6 +100,25 @@ function toggleLayer(layer) {
     } else {
         layer.setMap(map);
     }
+}
+
+function showAll() {
+  initialize();
+  layer_ext.setMap(map);
+  layer_res.setMap(map);
+  layer_tfs.setMap(map);
+  layer_tvmdl.setMap(map);
+}
+
+function getUrlVars() {
+  var vars = [], hash;
+  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for(var i = 0; i < hashes.length; i++ ) {
+    hash = hashes[i].split('=');
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+  }
+  return vars;
 }
 
 // Toggle layer visibility when user clicks on branch
@@ -132,9 +170,6 @@ function codeAddress(place) {
 		});
 }
 
-$(document).ready( function() {
-  initialize();
-});
 
 var apikey = "AIzaSyAwvTAlWZ9tj8b4-1QWHwFl3ILodM7u0jA";
 var tableid = 2891754;
@@ -220,7 +255,7 @@ $(function() {
   });
 
   $('#reset').click( function() {
-      initialize();
+      showAll();
   });
 });
 					
