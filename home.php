@@ -47,7 +47,6 @@ function initialize() {
             from: tableid,
             where: 'Type = 2'
         }
-        
     });
 
     layer_tvmdl = new google.maps.FusionTablesLayer({
@@ -73,10 +72,6 @@ function initialize() {
         position: aghq,
         icon: new google.maps.MarkerImage("http://agrilife.org/template-agriflex/wp-content/themes/AgriLife-Locations/images/agrilife-marker.png")
     });
-
-    console.log('Initialized!');
-
-
 }
 
 function layerUrl() {
