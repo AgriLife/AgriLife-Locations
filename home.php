@@ -84,7 +84,7 @@ function toggleLayer(layer) {
 }
 
 // Toggle layer visibility when user clicks on branch
-$(document).ready( function() {
+$(function() {
   $('#extension-legend').click(function() {
       toggleLayer(layer_ext);
   });
@@ -167,6 +167,62 @@ $(document).ready( function() {
                   getLocations(data);
               });
 });
+
+function changeMapExt() {
+    
+    var searchstring = $('#ext-locations').val().trim();
+    layer_ext.setMap(null);
+    layer_res.setMap(null);
+    layer_tfs.setMap(null);
+    layer_tvmdl.setMap(null);
+    
+    layer_ext = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'Location',
+            from: tableid,
+            where: "'Unit Name' = '" + searchstring + "'"
+        }
+    });
+
+    layer_ext.setMap(map);
+    
+    
+}
+
+function changeMapRes() {
+    
+    var searchstring = $('#res-locations').val().trim();
+    layer_ext.setMap(null);
+    layer_res.setMap(null);
+    layer_tfs.setMap(null);
+    layer_tvmdl.setMap(null);
+    
+    layer_res = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'Location',
+            from: tableid,
+            where: "'Unit Name' = '" + searchstring + "'"
+        }
+    });
+
+    layer_res.setMap(map);
+    
+    
+}
+
+$(function() {
+  $('#ext-locations').change( function() {
+      changeMapExt();
+  });
+
+  $('#res-locations').change( function() {
+      changeMapRes();
+  });
+
+  $('#reset').click( function() {
+      initialize();
+  });
+});
 					
 </script> 
 </head> 
@@ -201,6 +257,7 @@ $(document).ready( function() {
 			</li>	
 			
 			<li class="hq-legend">Texas A&amp;M AgriLife Headquarters</li>											
+      <li class="show-all"><label class="office" id="reset" value="Show All"><span>Show All</span></label></li>
 		</ul>
 
 		</div>
