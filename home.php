@@ -16,16 +16,21 @@
 var map,
   tableid = 2891754,
   myOptions = {
-    center: new google.maps.LatLng(31.7093197, -98.9911611),
-    zoom: 6,
+    center: new google.maps.LatLng(31.7093197, -99.9911611),
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
 var layer_ext;
 
 $(document).ready( function() {
 
+  var height = $(window).height();
+  var width = $(window).width();
+
+  myOptions.zoom = getZoom(height, width);
   initialize();
   layerUrl();
+
+
 
 
 });
@@ -74,6 +79,16 @@ function initialize() {
     });
 }
 
+function getZoom(height, width) {
+  if( width <= 300 ) {
+    return 4;
+  } else if( width > 300 && width <= 600) {
+    return 5;
+  } else if( width > 600 ){
+    return 6;
+  }
+}
+
 function layerUrl() {
   httparg = getUrlVars()["layer"];
 
@@ -94,6 +109,7 @@ function toggleLayer(layer) {
         layer.setMap(null);
     } else {
         layer.setMap(map);
+        console.log(layer);
     }
 }
 
