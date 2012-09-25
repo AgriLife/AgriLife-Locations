@@ -144,36 +144,6 @@ $(function() {
   });
 });
 
-// Shows single Extension office based on user input
-function changeMapExt() {
-	var searchString = document.getElementById('search-string-ext').value.replace(/'/g, "\\'");
-	if(!searchString) {
-	  layer.setQuery("SELECT 'Location' FROM " + tableid + "'Type' = 1");
-	  return;
-	}
-	var extOffice = "SELECT 'Location' FROM " + tableid + " WHERE 'Unit Name' = '" + searchString + "'";
-	layer_ext.setQuery(extOffice);
-}	
-
-// Shows single research office based on user input
-function changeMapResearch() {
-	var searchString = document.getElementById('search-string-research').value.replace(/'/g, "\\'");
-	if(!searchString) {
-	  layer.setQuery("SELECT 'Location' FROM " + tableid + "'Type' = 2");
-	  return;
-	}
-	var researchOffice = "SELECT 'Location' FROM " + tableid + " WHERE 'Unit Name' = '" + searchString + "'";
-	layer.setQuery(researchOffice);
-	codeAddress(researchOffice);
-}
-function codeAddress(place) {
-	geocoder.geocode( { 'address': place}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-		map.setCenter(results[0].geometry.location);
-		}
-		
-		});
-}
 
 
 // Fusion Tables query setup
