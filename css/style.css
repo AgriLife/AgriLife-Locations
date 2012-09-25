@@ -162,6 +162,10 @@ select {
 	padding: 0;
 }
 
+.googft-info-window {
+  color: #000000;
+}
+
 [role="site-info"] {
 	clear: both;
 	display: block;
