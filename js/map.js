@@ -104,6 +104,7 @@ function layerUrl() {
   }
 }
 
+// Parse the URL arguments
 function getUrlVars() {
   var vars = [], hash;
   var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -144,8 +145,6 @@ $(function() {
   });
 });
 
-
-
 // Fusion Tables query setup
 var apikey = "AIzaSyAwvTAlWZ9tj8b4-1QWHwFl3ILodM7u0jA";
 var tableid = 2891754;
@@ -154,6 +153,15 @@ var targeturl = "https://www.googleapis.com/fusiontables/v1/query?sql=";
 query = "SELECT 'Unit Name', Type FROM " + encryptedid + " ORDER BY 'Unit Name'";
 var keystring = "&key=" + apikey;
 
+// Retrieve list of locations from the Fusion Table
+$(document).ready( function() {
+  $.getJSON(targeturl + query + keystring,
+    function(data) {
+      getLocations(data);
+  });
+});
+
+// Parse the results into the dropdowns
 function getLocations(data) {
     extlocations = $.grep( data.rows, function(n, i) {
         return n[1] == 1;
@@ -171,14 +179,7 @@ function getLocations(data) {
     });
 }
 
-
-$(document).ready( function() {
-    $.getJSON(targeturl + query + keystring,
-              function(data) {
-                  getLocations(data);
-              });
-});
-
+// Show the selected Extension office
 function changeMapExt() {
     
     var searchstring = $('#ext-locations').val().trim();
@@ -197,9 +198,9 @@ function changeMapExt() {
 
     layer_ext.setMap(map);
     
-    
 }
 
+// Show the selected Research Office
 function changeMapRes() {
     
     var searchstring = $('#res-locations').val().trim();
@@ -218,9 +219,9 @@ function changeMapRes() {
 
     layer_res.setMap(map);
     
-    
 }
 
+// Listen for location selection and show-all
 $(function() {
   $('#ext-locations').change( function() {
       changeMapExt();
