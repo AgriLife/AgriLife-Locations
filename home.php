@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php get_header();?>
 <html> 
 <head> 
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
@@ -54,5 +55,6 @@
 	
 <script>
 </script>	
+<?php get_footer(); ?>
 </body> 
 </html>

@@ -148,16 +148,26 @@ $(function() {
 // Fusion Tables query setup
 var apikey = "AIzaSyAwvTAlWZ9tj8b4-1QWHwFl3ILodM7u0jA";
 var tableid = 2891754;
+var queryUrlHead = "https://www.googleapis.com/fusiontables/v1/query?sql=";
+var queryUrlTail = "&callback=?";
 var encryptedid = "19aSULi0NxobDXvjbc6ygoNoYhYLrFLhACu7Dyuw";
-var targeturl = "https://www.googleapis.com/fusiontables/v1/query?sql=";
-query = "SELECT 'Unit Name', Type FROM " + encryptedid + " ORDER BY 'Unit Name'";
+var query = "SELECT 'Unit Name', Type FROM " + encryptedid + " ORDER BY 'Unit Name'";
+var encodedQuery = encodeURIComponent(query);
 var keystring = "&key=" + apikey;
+var queryurl = encodeURI(queryUrlHead + query + keystring + queryUrlTail);
+var url = [queryUrlHead];
+url.push(encodedQuery);
+url.push(keystring);
+url.push(queryUrlTail);
 
 // Retrieve list of locations from the Fusion Table
 $(document).ready( function() {
-  $.getJSON(targeturl + query + keystring,
-    function(data) {
+  $.ajax({
+    url: url.join(''),
+    dataType: 'jsonp',
+    success: function(data) {
       getLocations(data);
+    }
   });
 });
 
