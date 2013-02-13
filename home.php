@@ -12,7 +12,7 @@
 <script type="text/javascript" src="http://www.google.com/jsapi"></script> 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script> 
-<script type="text/javascript" src="<?php echo get_template_directory_uri() . '/js/map.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri() . '/js/map.js?v=2'; ?>"></script>
 
 
 </head> 
