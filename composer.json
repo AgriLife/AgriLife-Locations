@@ -1,0 +1,19 @@
+{
+	"name"       : "agrilife/agrilife-locations",
+	"description": "Locations map of all AgriLife offices",
+	"license"    : "GPL-2.0",
+	"authors"    : [
+		{
+			"name" : "J. Aaron Eaton",
+			"email": "aaron@channeleaton.com"
+		}
+	],
+	"require"    : {
+
+	},
+	"autoload"   : {
+		"psr-0": {
+			"AgLocations": "inc"
+		}
+	}
+}

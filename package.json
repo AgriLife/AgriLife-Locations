@@ -1,0 +1,21 @@
+{
+  "name": "agrilife-locations",
+  "version": "3.0.0",
+  "description": "Location map for AgriLife offices",
+  "main": "index.php",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "J. Aaron Eaton",
+  "license": "GPL2",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-compass": "~0.2.0",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-watch": "~0.4.3",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-csslint": "~0.1.2",
+    "grunt-contrib-cssmin": "~0.6.0"
+  }
+}
