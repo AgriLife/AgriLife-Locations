@@ -1,3 +1,4 @@
 {
-	"servers" : [ "agrilife" ]
+	"servers" : [ "agrilife" ],
+	"bower" : false
 }
