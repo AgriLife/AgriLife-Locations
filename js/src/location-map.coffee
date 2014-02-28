@@ -82,6 +82,7 @@ AgLocations.View.Layer = Backbone.View.extend
 	initialize: (options) ->
 		@options = options || {}
 		@layer = new google.maps.FusionTablesLayer
+			templateId: 2
 		@layer.setMap @model.get 'map'
 
 	render: ->
@@ -164,6 +165,11 @@ $ ->
 			@mapView.render()
 			@locations = new AgLocations.View.Layer
 				model: @map
+			google.maps.event.addListener @map, 'click', (e) =>
+				console.log e
+				newContent = e.infoWindowHtml.replace("/<a /<a target='_blank' /g");
+				infowindow.setOptions
+					content: newContent
 
 		index: ->
 			@locations.options.filter = null

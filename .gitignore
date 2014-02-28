@@ -40,3 +40,6 @@ intermediate
 cache
 node_modules
 vendor
+
+js/location-map.js
+js/location-map.js.map
