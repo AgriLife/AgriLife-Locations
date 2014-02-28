@@ -62,7 +62,7 @@ AgLocations.View.Map = Backbone.View.extend
 		marker = new google.maps.Marker
 			map: @model.get 'map'
 			position: aghq
-			icon: new google.maps.MarkerImage "http://agrilife.org/template-agriflex/wp-content/themes/AgriLife-Locations/images/agrilife-marker.png"
+			icon: new google.maps.MarkerImage "http://agrilife.org/wp-content/themes/AgriLife-Locations/img/agrilife-marker.png"
 
 	render: ->
 		$("#" + @id).replaceWith @el
@@ -153,7 +153,6 @@ $ ->
 
 		initialize: ->
 			zoom = @getZoom()
-			console.log zoom
 			@map = new AgLocations.Model.Map
 				zoom: zoom
 			@map.initMap
@@ -192,7 +191,6 @@ $ ->
 
 		getZoom: ->
 			width = $(window).width()
-			console.log width
 			height = $(window).height()
 			small = width <= 300
 			if width <= 300

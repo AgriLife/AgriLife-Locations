@@ -24,3 +24,12 @@ You can link directly to a location type by navigating to `http://agrilife.org/l
 
 ### Show a specific office
 You can link directly to a single office by navigating to `http://agrilife.org/locations/unit/{enter unit name here}`. The easiest way to get the correct unit name is to use the options panel to find that location and copy the URL.
+
+## Changelog
+### 3.1.0
+* Links in infowindows now open in new window/tab
+* Fixed headquarters icon url
+* Removed some log messages
+
+### 3.0.0
+* Re-written for Backbone
