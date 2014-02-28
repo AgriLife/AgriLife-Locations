@@ -1,6 +1,10 @@
 {
   "name": "agrilife-locations",
   "version": "3.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AgriLife/AgriLife-Locations"
+	},
   "description": "Location map for AgriLife offices",
   "main": "index.php",
   "scripts": {
